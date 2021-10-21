@@ -1,3 +1,7 @@
+package com.example.calculator.interactor;
+
+import com.example.calculator.entity.Calculation;
+
 public class UseCase{
 
     UseCase() {

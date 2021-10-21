@@ -1,40 +1,86 @@
-public class FragmentCalc extends Fragment{
-    private EditText editText1;
-    private EditText editText2;
+package com.example.calculator.presentation;
+
+import android.content.Context;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+
+import com.example.calculator.R;
+import com.example.calculator.entity.Calculation;
+import com.example.calculator.presentation.viewmodel.MyViewModel;
+
+public class FragmentCalc extends Fragment {
+    private EditText editTextCostObject;
+    private EditText editTextMonthlyRent;
+    private EditText editTextExpenses;
     private TextView tvPercentageOfIncome;
     private TextView tvNetProfit;
     private TextView tvPaybackPeriod;
+    private MyViewModel myViewModel;
+    private Context context;
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
-    
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.context = context;
     }
-    
+
     @Override
-    public void onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
-    
+
     @Override
-    public void onActivityCreated(Bundle savedInstanceState){
-        textView = findViewById(R.id.textViewPercent);
-        editText1 = findViewById(R.id.editTextTextPersonName);
-        editText2 = findViewById(R.id.editTextTextPersonName2);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_layout, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setClickListeners(view);
         LiveData<Calculation> liveData = myViewModel.getData();
-        liveData.observe(this, new Observer<Calculation>() {
+        liveData.observe(getViewLifecycleOwner(), new Observer<Calculation>() {
             @Override
-            onChanged(Calculation c) {
-                if(c != null) {
-                    setDataToTextView(c);
+            public void onChanged(Calculation calculation) {
+                if (calculation != null) {
+                    setDataToTextView(calculation);
                 }
             }
-        })
+
+        });
+//
+    }
+
+    private void setDataToTextView(Calculation c) {
+        tvPercentageOfIncome.setText(c.getPercentageOfIncome());
+        tvNetProfit.setText(c.getNetProfit());
+        tvPaybackPeriod.setText(c.getPaybackPeriod());
+    }
+
+    private void setClickListeners(View view) {
+//        textView = findViewById(R.id.textViewPercent);
+        editTextCostObject = view.findViewById(R.id.editTextCostObject);
+        editTextMonthlyRent = view.findViewById(R.id.editTextMonthlyRent);
+        editTextExpenses = view.findViewById(R.id.editTextExpenses);
+
         editText2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (editText1.getText().length() != 0 && editText2.getText().length() != 0) {
-                    presenter.getPercent(editText1.getText().toString(), editText2.getText().toString());
+
                 } else
-                    Toast.makeText(getApplicationContext(), "Введите данные", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Введите данные", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -48,12 +94,5 @@ public class FragmentCalc extends Fragment{
             }
         });
     }
-    
-    private void setDataToTextView(Calculation c) {
-        tvPercentageOfIncome.setText(c.getPercentageOfIncome);
-        tvNetProfit.setText(c.getNetProfit);
-        tvPaybackPeriod.setText(c.getPayBackPeriod);
-    }
-    
-    
+
 }
