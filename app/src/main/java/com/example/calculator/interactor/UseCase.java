@@ -4,7 +4,7 @@ import com.example.calculator.entity.Calculation;
 
 public class UseCase{
 
-    UseCase() {
+   public UseCase() {
     }
 
     public Calculation calculate(String costObject, String monthlyRent, String expenses) {

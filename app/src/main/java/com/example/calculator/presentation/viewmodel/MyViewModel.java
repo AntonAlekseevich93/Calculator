@@ -11,6 +11,10 @@ public class MyViewModel extends ViewModel {
 private MutableLiveData<Calculation> mutableLiveData;
 private UseCase useCase;
 
+    public MyViewModel(UseCase useCase) {
+        this.useCase = useCase;
+    }
+
     public LiveData<Calculation> getData() {
         if(mutableLiveData == null) {
             mutableLiveData = new MutableLiveData();
