@@ -24,7 +24,7 @@ import com.example.calculator.R;
 import com.example.calculator.entity.Calculation;
 import com.example.calculator.presentation.viewmodel.MyViewModel;
 
-public class FragmentCalc extends Fragment {
+public class SecondFragment extends Fragment {
     private EditText editTextCostObject;
     private EditText editTextMonthlyRent;
     private EditText editTextExpenses;
@@ -37,12 +37,7 @@ public class FragmentCalc extends Fragment {
     private Button btnAddSecondFragment;
     private Button btnCalculate;
     private FragmentManager fragmentManager;
-    private boolean secondFragmentIsNotAdded = true;
-    private SecondFragment secondFragment;
-    private String textValueButtonAddFragment = "+";
-    private final String TAG_SECOND_FRAGMENT = "TAG_SECOND_FRAGMENT";
-    private final String KEY_BUNDLE_SECOND_FRAGMENT_IS_NOT_ADDED = "KEY_BUNDLE_IS_SET_SECOND_FRAGMENT";
-    private final String KEY_BUNDLE_TEXT_VALUE_BUTTON_ADD = "KEY_BUNDLE_TEXT_VALUE_BUTTON_ADD";
+
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -67,28 +62,19 @@ public class FragmentCalc extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (savedInstanceState!= null) {
-            textValueButtonAddFragment
-                    = savedInstanceState.getString(KEY_BUNDLE_TEXT_VALUE_BUTTON_ADD);
-            System.out.println(textValueButtonAddFragment + " klfjsdds");
-        }
-        if (savedInstanceState != null && fragmentManager.findFragmentByTag(TAG_SECOND_FRAGMENT) != null) {
-            secondFragmentIsNotAdded = savedInstanceState.getBoolean(KEY_BUNDLE_SECOND_FRAGMENT_IS_NOT_ADDED);
-            secondFragment = (SecondFragment) fragmentManager.findFragmentByTag(TAG_SECOND_FRAGMENT);
 
-        } else secondFragment = new SecondFragment();
+
         initializeViews(view);
         setClickListeners();
-        LiveData<Calculation> liveData = myViewModel.getDataForFirstFragment();
+        btnAddSecondFragment.setVisibility(View.GONE);
+        LiveData<Calculation> liveData = myViewModel.getDataForSecondFragment();
         liveData.observe(getViewLifecycleOwner(), new Observer<Calculation>() {
             @Override
             public void onChanged(Calculation calculation) {
                 setDataToTextView(calculation);
             }
         });
-//
     }
-
 
     private void setDataToTextView(Calculation c) {
         tvPercentageOfIncome.setText(c.getPercentageOfIncome());
@@ -96,13 +82,13 @@ public class FragmentCalc extends Fragment {
         tvPaybackPeriod.setText(c.getPaybackPeriod());
     }
 
-
     private void setClickListeners() {
+
         editTextExpenses.setOnClickListener(v -> {
             calculate();
         });
 
-        btnCalculate.setOnClickListener(v -> {
+        btnCalculate.setOnClickListener(v ->{
             calculate();
         });
 
@@ -116,25 +102,6 @@ public class FragmentCalc extends Fragment {
             return true;
         });
 
-
-        btnAddSecondFragment.setOnClickListener(v -> {
-            if (secondFragmentIsNotAdded) {
-                fragmentManager.beginTransaction()
-                        .add(R.id.containerFrameLayout2, secondFragment, TAG_SECOND_FRAGMENT)
-                        .commit();
-                textValueButtonAddFragment = "-";
-                btnAddSecondFragment.setText(textValueButtonAddFragment);
-                secondFragmentIsNotAdded = false;
-
-            } else {
-                fragmentManager.beginTransaction()
-                        .remove(secondFragment)
-                        .commit();
-                secondFragmentIsNotAdded = true;
-                textValueButtonAddFragment = "+";
-                btnAddSecondFragment.setText(textValueButtonAddFragment);
-            }
-        });
 
     }
 
@@ -150,9 +117,7 @@ public class FragmentCalc extends Fragment {
         buttonClearData = view.findViewById(R.id.buttonClearData);
         btnAddSecondFragment = view.findViewById(R.id.btnAddFragment);
         btnCalculate = view.findViewById(R.id.buttonCalculate);
-        btnAddSecondFragment.setText(textValueButtonAddFragment);
     }
-
 
     private void clearViews() {
         tvPercentageOfIncome.setText("0.0%");
@@ -162,24 +127,14 @@ public class FragmentCalc extends Fragment {
         editTextCostObject.setText("");
     }
 
-    private void calculate() {
+    private void calculate(){
         String expenses = "";
         if (editTextExpenses.getText().length() == 0) expenses = "0";
         else expenses = editTextExpenses.getText().toString();
         if (editTextCostObject.getText().length() != 0 && editTextMonthlyRent.getText().length() != 0) {
-            myViewModel.calculateForFirstFragment(editTextCostObject.getText().toString(),
+            myViewModel.calculateForSecondFragment(editTextCostObject.getText().toString(),
                     editTextMonthlyRent.getText().toString(), expenses);
         } else
             Toast.makeText(context, "Введите данные", Toast.LENGTH_SHORT).show();
     }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putString(KEY_BUNDLE_TEXT_VALUE_BUTTON_ADD, textValueButtonAddFragment);
-        super.onSaveInstanceState(outState);
-        outState.putBoolean(KEY_BUNDLE_SECOND_FRAGMENT_IS_NOT_ADDED, secondFragmentIsNotAdded);
-
-    }
-
-
 }

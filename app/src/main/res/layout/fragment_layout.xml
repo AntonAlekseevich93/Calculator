@@ -1,30 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <TextView
         android:id="@+id/textViewPercent"
-        android:layout_width="150dp"
-        android:layout_height="60dp"
-        android:layout_gravity="center_vertical"
-        android:layout_marginHorizontal="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:autoSizeMinTextSize="10sp"
+        android:autoSizeTextType="uniform"
+        android:gravity="center"
+        android:maxWidth="110dp"
+        android:maxHeight="70dp"
+        android:maxLines="1"
         android:text="0.0%"
         android:textSize="60sp"
-        android:gravity="center_horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <TextView
         android:id="@+id/tvInfoNetProfit"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:text="Годовой доход:"
         android:layout_marginHorizontal="5dp"
+        android:layout_marginStart="5dp"
+        android:autoSizeMinTextSize="7sp"
+        android:autoSizeTextType="uniform"
+        android:maxLines="1"
+        android:text="@string/netProfit"
         app:layout_constraintBottom_toTopOf="@+id/tvInfoPaybackPeriod"
         app:layout_constraintEnd_toStartOf="@+id/tvNetProfit"
         app:layout_constraintHorizontal_bias="0.5"
@@ -36,6 +42,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="1dp"
+        android:autoSizeMinTextSize="7sp"
+        android:autoSizeTextType="uniform"
+        android:maxLines="2"
         app:layout_constraintBottom_toTopOf="@+id/tvPaybackPeriod"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -44,11 +53,15 @@
 
 
     <TextView
+
         android:id="@+id/tvInfoPaybackPeriod"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="1dp"
-        android:text="Окупаемость:"
+        android:layout_marginStart="5dp"
+        android:autoSizeMinTextSize="7sp"
+        android:autoSizeTextType="uniform"
+        android:maxLines="1"
+        android:text="@string/paybackperiod"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toStartOf="@+id/tvPaybackPeriod"
         app:layout_constraintHorizontal_bias="0.5"
@@ -60,6 +73,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="1dp"
+        android:autoSizeMinTextSize="7sp"
+        android:autoSizeTextType="uniform"
+        android:maxLines="2"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -78,23 +94,23 @@
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:layout_weight="3"
-            android:text="Стоимость объекта:"
+            android:autoSizeTextType="uniform"
+            android:maxLines="1"
+            android:text="@string/costObject"
             android:textSize="20sp" />
 
         <EditText
-
             android:id="@+id/editTextCostObject"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
+            android:imeOptions="flagNoExtractUi|actionNext"
             android:inputType="numberDecimal"
-
-            />
+            android:minHeight="48dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -102,7 +118,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="5dp"
-
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -110,13 +125,13 @@
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:layout_weight="3"
-            android:text="Месячная аренда:"
+            android:autoSizeTextType="uniform"
+            android:maxLines="1"
+            android:text="@string/monthlyRent"
             android:textSize="20sp" />
-
         <EditText
 
             android:id="@+id/editTextMonthlyRent"
@@ -124,11 +139,15 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:imeOptions="actionNext"
-            android:inputType="numberDecimal" />
+            android:imeOptions="flagNoExtractUi|actionNext"
+            android:inputType="numberDecimal"
+            android:minHeight="48dp"
+
+            />
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="5dp"
@@ -140,10 +159,12 @@
 
         <TextView
             android:id="@+id/textView3"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:text="Расходы"
+            android:layout_weight="3"
+            android:autoSizeTextType="uniform"
+            android:maxLines="1"
+            android:text="@string/expenses"
             android:textSize="20sp" />
 
         <EditText
@@ -152,20 +173,45 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
+            android:hint="@string/hint_edit_text_expenses"
+            android:imeOptions="flagNoExtractUi|actionGo"
             android:inputType="numberDecimal"
-            android:text="0"
-
+            android:minHeight="48dp"
             android:textAlignment="center" />
 
-        <Button
-            android:id="@+id/buttonClearData"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:text="Очистить данные"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
     </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btnAddFragment"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginHorizontal="2dp"
+
+        app:layout_constraintEnd_toStartOf="@id/buttonClearData"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+
+
+    <Button
+        android:id="@+id/buttonClearData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="2dp"
+        android:text="@string/clear"
+        app:layout_constraintEnd_toStartOf="@+id/buttonCalculate"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+
+    <Button
+
+        android:id="@+id/buttonCalculate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:text="@string/calculate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
     

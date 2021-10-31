@@ -1,6 +1,7 @@
 package com.example.calculator.entity;
 
 public class Calculation {
+
     private double costObject;
     private double monthlyRent;
     private double expenses;
@@ -19,6 +20,7 @@ public class Calculation {
     public String getPaybackPeriod() {
         return paybackPeriod;
     }
+
 
     public Calculation(double costObject, double monthlyRent, double expenses) {
         this.costObject = costObject;
@@ -43,5 +45,11 @@ public class Calculation {
         double d = costObject / (monthlyRent * 12 - expenses);
         String[] s = String.valueOf(d).split("\\.");
         paybackPeriod = s[0] + " year " + s[1].substring(0, 1) + " month";
+    }
+
+    public void calculation(double costObject, double monthlyRent, double expenses) {
+        setPercentageOfIncome(costObject, monthlyRent, expenses);
+        setNetProfit(monthlyRent, expenses);
+        setPaybackPeriod(costObject, monthlyRent, expenses);
     }
 }

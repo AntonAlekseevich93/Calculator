@@ -2,6 +2,7 @@ package com.example.calculator.presentation;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.FragmentManager;
@@ -25,14 +26,16 @@ public class MainActivity extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);//Отключаем темную тему
         useCase = new UseCase();
         myViewModel = new ViewModelProvider(this, new ModelFactory(useCase)).get(MyViewModel.class);
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         if (savedInstanceState == null) {
-
             fragmentManager.beginTransaction()
                     .add(R.id.containerFrameLayout, new FragmentCalc())
                     .commit();
         }
     }
+
+
 
 
 }
